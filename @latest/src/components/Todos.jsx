@@ -5,6 +5,11 @@ function Todos() {
     const [todos, setTodos] = useState([])
     const itemsLeft = todos.filter((todo) => !todo.completed).length;
     const itemWord = itemsLeft === 1 ? 'item' : 'items';
+    const hasCompletedTodos = todos.some((todo) => todo.completed);
+
+  function handleClearCompleted() {
+    setTodos(todos.filter((todo) => !todo.completed));
+  }
  function handleSubmit(e) {
    e.preventDefault()
    const trimmed = text.trim()
@@ -118,7 +123,13 @@ function Todos() {
               </button>
             </li>
           </ul>
-          <button type="button" className="cursor-pointer justify-self-end hover:underline">
+          <button
+            type="button"
+            onClick={handleClearCompleted}
+            className={`cursor-pointer justify-self-end hover:underline ${
+              hasCompletedTodos ? 'visible' : 'invisible'
+            }`}
+          >
             Clear completed
           </button>
         </footer>
